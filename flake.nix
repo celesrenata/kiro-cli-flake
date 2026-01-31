@@ -30,6 +30,7 @@
             src = pkgs.fetchzip {
               url = "https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-${variant}-linux.zip";
               stripRoot = false;
+              hash = "sha256-a/os1d4rOR/e4EAfPj4j932YHErPIOtN/4JXI8kCpOM=";
             };
 
             nativeBuildInputs = [ pkgs.autoPatchelfHook ];
