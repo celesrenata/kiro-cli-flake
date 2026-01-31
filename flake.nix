@@ -37,6 +37,7 @@
 
             buildInputs = with pkgs; [
               stdenv.cc.cc.lib
+              xz
             ];
 
             installPhase = ''
