@@ -17,7 +17,10 @@
             inherit system;
             config.allowUnfree = true;
           };
+          
+          # Determine which variant to use based on system
           variant = if system == "x86_64-linux" then "x86_64" else "aarch64";
+          
         in
         {
           default = pkgs.stdenv.mkDerivation {
@@ -26,26 +29,27 @@
 
             src = pkgs.fetchzip {
               url = "https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-${variant}-linux.zip";
-              hash = "sha256-beCuI02yPytsIwHL0xrdZuQFxT+SUVMGl/40SOgJ9UU=";
+              stripRoot = false;
+              hash = "sha256-PsUMHJ5ECnsbrte6qGhIItJnq9HE/4EuUNltKE3z2Pw=";
             };
 
-            nativeBuildInputs = [ pkgs.autoPatchelfHook pkgs.makeWrapper ];
+            nativeBuildInputs = [ pkgs.autoPatchelfHook ];
 
             buildInputs = with pkgs; [
               stdenv.cc.cc.lib
+              xz
             ];
 
             installPhase = ''
               runHook preInstall
-
+              
               mkdir -p $out/bin
-              install -m755 bin/kiro-cli $out/bin/
-              install -m755 bin/kiro-cli-chat $out/bin/
-              install -m755 bin/kiro-cli-term $out/bin/
-
-              makeWrapper $out/bin/kiro-cli $out/bin/q --add-flags "--show-legacy-warning"
-              makeWrapper $out/bin/kiro-cli $out/bin/qchat --add-flags "--show-legacy-warning chat"
-
+              cp -r kirocli/* $out/
+              
+              if [ -f $out/bin/kiro-cli ]; then
+                chmod +x $out/bin/kiro-cli
+              fi
+              
               runHook postInstall
             '';
 
