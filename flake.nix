@@ -44,11 +44,8 @@
               runHook preInstall
               
               mkdir -p $out/bin
-              cp -r kirocli/* $out/
-              
-              if [ -f $out/bin/kiro-cli ]; then
-                chmod +x $out/bin/kiro-cli
-              fi
+              cp bin/* $out/bin/
+              chmod +x $out/bin/*
               
               runHook postInstall
             '';
