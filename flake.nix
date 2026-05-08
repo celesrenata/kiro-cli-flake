@@ -18,8 +18,10 @@
             config.allowUnfree = true;
           };
           
-          # Determine which variant to use based on system
-          variant = if system == "x86_64-linux" then "x86_64" else "aarch64";
+          archInfo = {
+            x86_64-linux = { variant = "x86_64"; hash = "sha256-34n+vxrxD5X23td+b6cbvu5ETN4IjINZfNhuwm+T+6U="; };
+            aarch64-linux = { variant = "aarch64"; hash = "sha256-HrWsMh2MxzWO9BL8045UYVcLvWg+3ySgKXVR31yLSJs="; };
+          }.${system};
           
         in
         {
@@ -28,9 +30,9 @@
             version = "latest";
 
             src = pkgs.fetchzip {
-              url = "https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-${variant}-linux.zip";
+              url = "https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-${archInfo.variant}-linux.zip";
               stripRoot = false;
-              hash = "sha256-zXZPCbAJp441wf0SRe/R0CxHC8p7wBK9Ako1xf5FkCk=";
+              hash = archInfo.hash;
             };
 
             nativeBuildInputs = [ pkgs.autoPatchelfHook ];
