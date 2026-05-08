@@ -19,7 +19,7 @@
           };
           
           archInfo = {
-            x86_64-linux = { variant = "x86_64"; hash = "sha256-HrWsMh2MxzWO9BL8045UYVcLvWg+3ySgKXVR31yLSJs="; };
+            x86_64-linux = { variant = "x86_64"; hash = "sha256-nLRPX+ykPNO37pb+hdclD4Oven4xppz/hCPoZDBsPz8="; };
             aarch64-linux = { variant = "aarch64"; hash = "sha256-zXZPCbAJp441wf0SRe/R0CxHC8p7wBK9Ako1xf5FkCk="; };
           }.${system};
           
@@ -46,7 +46,7 @@
               runHook preInstall
               
               mkdir -p $out/bin
-              cp bin/* $out/bin/
+              cp kirocli/bin/* $out/bin/
               chmod +x $out/bin/*
               
               runHook postInstall
