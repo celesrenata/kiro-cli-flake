@@ -46,7 +46,7 @@
               runHook preInstall
               
               mkdir -p $out/bin
-              cp bin/* $out/bin/
+              cp kirocli/bin/* $out/bin/
               chmod +x $out/bin/*
               
               runHook postInstall
