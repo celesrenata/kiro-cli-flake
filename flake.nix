@@ -19,15 +19,15 @@
           };
           
           archInfo = {
-            x86_64-linux = { variant = "x86_64"; hash = "sha256-nLRPX+ykPNO37pb+hdclD4Oven4xppz/hCPoZDBsPz8="; };
-            aarch64-linux = { variant = "aarch64"; hash = "sha256-zXZPCbAJp441wf0SRe/R0CxHC8p7wBK9Ako1xf5FkCk="; };
+            x86_64-linux = { variant = "x86_64"; hash = "sha256-m6mjzubnzSYvjfh/ZU9jB8IHquK+MzSNtWhxxetsqP4="; };
+            aarch64-linux = { variant = "aarch64"; hash = "sha256-u8ipqZU0YgHypEK+EjU20YxesLcIq19ATZp5ggQuq70="; };
           }.${system};
           
         in
         {
           default = pkgs.stdenv.mkDerivation {
             pname = "kiro-cli";
-            version = "latest";
+            version = "2.4.1";
 
             src = pkgs.fetchzip {
               url = "https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-${archInfo.variant}-linux.zip";
@@ -46,7 +46,7 @@
               runHook preInstall
               
               mkdir -p $out/bin
-              cp kirocli/bin/* $out/bin/
+              cp bin/* $out/bin/
               chmod +x $out/bin/*
               
               runHook postInstall
