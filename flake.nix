@@ -2,7 +2,7 @@
   description = "Kiro CLI - AI-powered command line interface";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs = { self, nixpkgs }:
@@ -27,7 +27,7 @@
         {
           default = pkgs.stdenv.mkDerivation {
             pname = "kiro-cli";
-            version = "2.4.1";
+            version = "2.10.0";
 
             src = pkgs.fetchzip {
               url = "https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-${archInfo.variant}-linux.zip";
