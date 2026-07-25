@@ -19,8 +19,8 @@
           };
           
           archInfo = {
-            x86_64-linux = { variant = "x86_64"; hash = "sha256-wFWdytStQLLwcuF2nHqmiNXYYg//x+SvAhoGGy/LaXY="; };
-            aarch64-linux = { variant = "aarch64"; hash = "sha256-u8ipqZU0YgHypEK+EjU20YxesLcIq19ATZp5ggQuq70="; };
+            x86_64-linux = { variant = "x86_64"; hash = "sha256-p3C9Etsy4An4EBVQjhyM7QBkO+MuPgOxXRm4itz+59E="; };
+            aarch64-linux = { variant = "aarch64"; hash = "sha256-POm4q1Zqe3a+Tq2lccSYNwUlU5G/sN8fXOvTOauh6rg="; };
           }.${system};
           
         in
