@@ -19,15 +19,15 @@
           };
           
           archInfo = {
-            x86_64-linux = { variant = "x86_64"; hash = "sha256-Zg4NZeKqFnsnZbSXqd5YPDz4rFq55QuUu4oBLF+kaEU="; };
-            aarch64-linux = { variant = "aarch64"; hash = "sha256-/Iq00kPkuWyVz+kZ1ZXiH5fHI77/JpAljgpsDWm4oJM="; };
+            x86_64-linux = { variant = "x86_64"; hash = "sha256-Dq7WSGDg8+cRFwkKw2OYCV0Y5eW9GFChPz7zCn6EnhM="; };
+            aarch64-linux = { variant = "aarch64"; hash = "sha256-ZN2UM0sphpUeFuuH6KyRC0sFwTnTgF/059WLIV3vSmQ="; };
           }.${system};
           
         in
         {
           default = pkgs.stdenv.mkDerivation {
             pname = "kiro-cli";
-            version = "2.10.0";
+            version = "2.21.1";
 
             src = pkgs.fetchzip {
               url = "https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-${archInfo.variant}-linux.zip";
@@ -44,11 +44,17 @@
 
             installPhase = ''
               runHook preInstall
-              
+
               mkdir -p $out/bin
-              cp kirocli/bin/* $out/bin/
-              chmod +x $out/bin/*
-              
+
+              # The release archive extracts to a "kirocli/" directory containing
+              # bin/{kiro-cli,kiro-cli-chat,kiro-cli-term} plus "q"/"qchat" wrapper
+              # scripts that hardcode $HOME/.local/bin paths. Install only the real
+              # ELF binaries; autoPatchelfHook will fix up their interpreter/rpath.
+              install -m 755 kirocli/bin/kiro-cli      $out/bin/kiro-cli
+              install -m 755 kirocli/bin/kiro-cli-chat $out/bin/kiro-cli-chat
+              install -m 755 kirocli/bin/kiro-cli-term $out/bin/kiro-cli-term
+
               runHook postInstall
             '';
 
