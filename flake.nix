@@ -20,7 +20,7 @@
           
           archInfo = {
             x86_64-linux = { variant = "x86_64"; hash = "sha256-Dq7WSGDg8+cRFwkKw2OYCV0Y5eW9GFChPz7zCn6EnhM="; };
-            aarch64-linux = { variant = "aarch64"; hash = "sha256-ZN2UM0sphpUeFuuH6KyRC0sFwTnTgF/059WLIV3vSmQ="; };
+            aarch64-linux = { variant = "aarch64"; hash = "sha256-DCUQnv494mREdNOlILLBtiGy0inrBudstddB6+78Q="; };
           }.${system};
           
         in
