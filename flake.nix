@@ -19,15 +19,15 @@
           };
           
           archInfo = {
-            x86_64-linux = { variant = "x86_64"; hash = "sha256-Dq7WSGDg8+cRFwkKw2OYCV0Y5eW9GFChPz7zCn6EnhM="; };
-            aarch64-linux = { variant = "aarch64"; hash = "sha256-DCUQnv494mREdNOlILLBtiGy0inrBudstddB6sR+70Q="; };
+            x86_64-linux = { variant = "x86_64"; hash = "sha256-ah7O+/WBFwJu2e5tgqhxvxl84M+xutZViKp2MEMjGsU="; };
+            aarch64-linux = { variant = "aarch64"; hash = "sha256-9lxZ1UhagWV1fj740BO3osnL4HdOisA4IjoBqhHL2F8="; };
           }.${system};
           
         in
         {
           default = pkgs.stdenv.mkDerivation {
             pname = "kiro-cli";
-            version = "2.21.1";
+            version = "2.21.4";
 
             src = pkgs.fetchzip {
               url = "https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-${archInfo.variant}-linux.zip";
