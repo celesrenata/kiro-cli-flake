@@ -47,13 +47,25 @@
 
               mkdir -p $out/bin
 
-              # The release archive extracts to a "kirocli/" directory containing
-              # bin/{kiro-cli,kiro-cli-chat,kiro-cli-term} plus "q"/"qchat" wrapper
-              # scripts that hardcode $HOME/.local/bin paths. Install only the real
-              # ELF binaries; autoPatchelfHook will fix up their interpreter/rpath.
-              install -m 755 kirocli/bin/kiro-cli      $out/bin/kiro-cli
-              install -m 755 kirocli/bin/kiro-cli-chat $out/bin/kiro-cli-chat
-              install -m 755 kirocli/bin/kiro-cli-term $out/bin/kiro-cli-term
+              # As of kiro-cli 2.21.4 the release archive extracts to a
+              # "kirocli/" directory containing a SINGLE ELF binary,
+              # bin/kiro-cli (upstream consolidated the former
+              # kiro-cli-chat / kiro-cli-term entrypoints into subcommands of
+              # kiro-cli, and its own install.sh now installs only kiro-cli).
+              # Install the real binary; autoPatchelfHook fixes its
+              # interpreter/rpath.
+              install -m 755 kirocli/bin/kiro-cli $out/bin/kiro-cli
+
+              # Backwards-compat: earlier versions shipped a separate
+              # kiro-cli-chat binary. The chat entrypoint is now `kiro-cli
+              # chat`, so provide kiro-cli-chat as a thin wrapper that forwards
+              # to it, keeping any existing references (desktop files, scripts,
+              # PATH habits) working.
+              cat > $out/bin/kiro-cli-chat <<EOF
+              #!/bin/sh
+              exec "$out/bin/kiro-cli" chat "\$@"
+              EOF
+              chmod 755 $out/bin/kiro-cli-chat
 
               runHook postInstall
             '';
